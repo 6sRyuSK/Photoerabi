@@ -1,7 +1,7 @@
 import { useQuery, getSession, useMutation } from "blitz"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import React, { Suspense, useEffect, useState } from "react"
-import photoPath from "../constant/photos"
+import photoPath from "../constant/photos.json"
 import getMyFavorites from "../favorites/queries/getMyFavorites"
 import createFavorite from "../favorites/mutations/createFavorite"
 import deleteMyFavorite from "../favorites/mutations/deleteMyFavorite"

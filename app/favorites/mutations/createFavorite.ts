@@ -4,6 +4,7 @@ import { z } from "zod"
 
 const CreateFavorite = z.object({
   name: z.string(),
+  userId: z.number(),
 })
 
 export default resolver.pipe(resolver.zod(CreateFavorite), resolver.authorize(), async (input) => {

@@ -1,18 +1,35 @@
-import { useQuery, getSession } from "blitz"
+import { useQuery, getSession, useMutation } from "blitz"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import React, { Suspense, useEffect, useState } from "react"
 import photoPath from "../constant/photos"
 import getMyFavorites from "../favorites/queries/getMyFavorites"
+import createFavorite from "../favorites/mutations/createFavorite"
+import deleteMyFavorite from "../favorites/mutations/deleteMyFavorite"
 
 type PhotoComponentProps = {
-  name: string
-  path: string
-  favorited: boolean
+  photo: {
+    name: string
+    path: string
+    favorited: boolean
+  }
+  userId: number
 }
 
-const PhotoComponent: React.FC<PhotoComponentProps> = ({ name, path, favorited }) => {
+const PhotoComponent: React.FC<PhotoComponentProps> = ({ photo, userId }) => {
+  const { name, path, favorited } = photo
   const [favorite, setFavorite] = useState<boolean>(favorited)
+  const [addFavorite] = useMutation(createFavorite)
+  const [removeMyFavorite] = useMutation(deleteMyFavorite)
   const onFavorite = () => {
+    if (favorite === false) {
+      addFavorite({ name, userId }).catch((err) => {
+        throw new Error(err)
+      })
+    } else {
+      removeMyFavorite({ name }).catch((err) => {
+        throw new Error(err)
+      })
+    }
     setFavorite(!favorite)
   }
   return (
@@ -57,15 +74,18 @@ const PhotoComponent: React.FC<PhotoComponentProps> = ({ name, path, favorited }
 }
 
 type PhotosProps = {
-  photos: PhotoComponentProps[]
+  photos: PhotoComponentProps["photo"][]
+  userId: number
 }
 
 const Photos: React.FC<PhotosProps> = (props) => {
+  // const currentUser = useCurrentUser()
+  // if (!currentUser) return <p>Not Authenticated</p>
   return (
     <div className="m-4 grid xl:grid-cols-3">
       {props.photos &&
         props.photos.map((val) => {
-          return <PhotoComponent key={val.name} {...val}></PhotoComponent>
+          return <PhotoComponent key={val.name} photo={val} userId={props.userId}></PhotoComponent>
         })}
     </div>
   )
@@ -86,6 +106,7 @@ export async function getServerSideProps({ req, res }) {
   return {
     props: {
       photos: photos,
+      userId: session.userId,
     },
   }
 }

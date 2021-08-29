@@ -7,16 +7,16 @@ type PhotoComponentProps = {
 
 const PhotoComponent: React.FC<PhotoComponentProps> = ({ name, path }) => {
   return (
-    <div>
-      <p>name</p>
-      <img src={path} />
+    <div className="m-4">
+      <p>{name}</p>
+      <img src={path} className="w-full" />
     </div>
   )
 }
 
 const Photos: React.FC = () => {
   return (
-    <div>
+    <div className="m-4 grid xl:grid-cols-3">
       {photoPath.map((val) => {
         return <PhotoComponent key={val.name} {...val}></PhotoComponent>
       })}

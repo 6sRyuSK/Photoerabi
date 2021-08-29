@@ -54,3 +54,4 @@ lib-cov
 
 /public/targetPhoto
 /app/constant/photos.js
+/app/constant/photos.json

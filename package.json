@@ -26,23 +26,26 @@
   "dependencies": {
     "@prisma/client": "2.30.0",
     "blitz": "0.39.0",
-    "react-dom": "alpha",
-    "react": "alpha",
-    "zod": "3.8.1",
     "final-form": "4.20.2",
-    "react-final-form": "6.5.3"
+    "react": "alpha",
+    "react-dom": "alpha",
+    "react-final-form": "6.5.3",
+    "zod": "3.8.1"
   },
   "devDependencies": {
     "@types/preview-email": "2.0.1",
     "@types/react": "17.0.19",
+    "autoprefixer": "10.3.3",
     "eslint": "7.32.0",
     "husky": "6.0.0",
     "lint-staged": "10.5.4",
-    "prettier-plugin-prisma": "0.15.0",
+    "postcss": "8.3.6",
     "prettier": "2.3.2",
+    "prettier-plugin-prisma": "0.15.0",
     "pretty-quick": "3.1.1",
     "preview-email": "3.0.5",
     "prisma": "2.30.0",
+    "tailwindcss": "2.2.8",
     "typescript": "~4.3"
   },
   "private": true
